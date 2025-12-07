@@ -1,0 +1,25 @@
+# Create DynamoDB table
+aws dynamodb create-table --cli-input-json file://infrastructure/create-table.json
+
+# Create IAM role for Lambda manually from console or via IAM JSON
+
+# Create Lambda function (zip method)
+aws lambda create-function \
+  --function-name LexProcessor \
+  --runtime python3.10 \
+  --role <ROLE_ARN> \
+  --handler app.lambda_handler \
+  --zip-file fileb://lex_lambda.zip
+
+# Add permission for Lex to invoke Lambda
+aws lambda add-permission \
+  --function-name LexProcessor \
+  --statement-id lex-invoke-2 \
+  --action "lambda:InvokeFunction" \
+  --principal lexv2.amazonaws.com
+
+# Test Lambda locally (optional)
+aws lambda invoke \
+  --function-name LexProcessor \
+  --payload '{"text": "hello"}' \
+  output.json
