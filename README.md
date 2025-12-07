@@ -40,29 +40,32 @@ lex-chatbot/
 
 ```bash
 aws dynamodb create-table --cli-input-json file://infrastructure/create-table.json
+```
 2️⃣ Create IAM role for Lambda
 
 Attach:
-
+```
 AWSLambdaBasicExecutionRole
 
 DynamoDBFullAccess
-
+```
 3️⃣ Create Lambda function
+```
 aws lambda create-function \
   --function-name LexProcessor \
   --runtime python3.10 \
   --role <ROLE_ARN> \
   --handler app.lambda_handler \
   --zip-file fileb://lex_lambda.zip
-
+```
 4️⃣ Allow Lex to call Lambda
+```
 aws lambda add-permission \
   --function-name LexProcessor \
   --statement-id lex-invoke-2 \
   --action lambda:InvokeFunction \
   --principal lexv2.amazonaws.com
-
+```
 5️⃣ Connect Lambda inside Lex V2 console
 
 Open Bot → Locale → Intent
@@ -76,19 +79,19 @@ Build locale
 🧪 Testing
 
 Use Lex test window:
-
+```
 Hello
-
+```
 
 Should return:
-
+```
 Thanks, I recorded your message: 'Hello'
-
+```
 
 Check DynamoDB:
-
+```
 aws dynamodb scan --table-name ChatbotInteractions
-
+```
 📌 Future Improvements
 
 Multi-intent routing
@@ -98,3 +101,17 @@ Slot value validation
 Conversation memory
 
 Personalized responses
+
+---
+
+# 🎉 FINAL STEP — Push to GitHub
+
+Run this in your project folder:
+
+```bash
+git init
+git add .
+git commit -m "Initial commit: Serverless Lex Chatbot"
+git branch -M main
+git remote add origin https://github.com/<your-username>/lex-chatbot.git
+git push -u origin main
