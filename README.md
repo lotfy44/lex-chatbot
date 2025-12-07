@@ -26,3 +26,13 @@ This project implements a fully serverless chatbot architecture using:
 
 ## Project Structure
 
+Lex-chatbot/
+│
+├── lambda/
+│ └── app.py
+│
+├── infrastructure/
+│ ├── create-table.json
+│ └── commands.txt
+│
+└── README.md
