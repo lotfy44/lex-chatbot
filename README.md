@@ -26,13 +26,16 @@ This project implements a fully serverless chatbot architecture using:
 
 ## Project Structure
 
-Lex-chatbot/
+lex-chatbot/
 │
 ├── lambda/
-│ └── app.py
+│   └── app.py
 │
 ├── infrastructure/
-│ ├── create-table.json
-│ └── commands.txt
+│   ├── create-table.json
+│   ├── lambda-role-policy.json   (optional)
+│   └── commands.txt              (all AWS CLI commands you used)
 │
-└── README.md
+├── README.md
+└── .gitignore
+
